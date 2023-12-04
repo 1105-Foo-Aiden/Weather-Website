@@ -1,0 +1,27 @@
+body{
+    background-color: #6497B1;
+    font-family: 'Kadwa', serif;
+}
+.nav-color{
+    background-color: #005B96;
+}
+
+.cityName{
+    color: white;
+    font-family: 'Karma' , serif;
+}
+#location{
+    font-size: 60px;
+    font-weight: lighter;
+}
+.centerMe{
+    text-align: center;
+}
+.rightMe{
+    text-align: right;
+    display: flex;
+    justify-content: right;
+}
+.high-low{
+    
+}

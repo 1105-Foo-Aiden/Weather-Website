@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./Styles/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kadwa&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karma&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row nav-color">
+        <div class="col-6" style="color: white">Weather</div>
+        <div class="col-2"></div>
+        <div class="col-4">
+          <input
+            type="search"
+            placeholder="Search"
+            class="rounded-5"
+            height="30px"
+            id="searchBar"
+          />
+          <img src="" alt="Magnifying Glass" id="searchBtn" />
+        </div>
+      </div>
+    </div>
+    <br /><br /><br /><br />
+    <div class="container" style="color: white">
+      <div class="row">
+        <div class="col">
+          <img src="" alt="Favorite's Star" class="rightMe" />
+        </div>
+        <div class="col" id="location">Stockton, CA</div>
+        <div class="col" style="background-color: #03396c" id="favorites">
+          <p
+            class="centerMe"
+            style="font-size: 40px; font-family: 'Kadwa', serif"
+          >
+            Favorites
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 rightMe">
+          <p id="date" style="font-weight: 300">Monday Nov.29</p>
+        </div>
+      </div>
+      <br /><br />
+      <div class="row">
+        <div class="col-4">
+          <img src="" alt="weather Status" class="rightMe" />
+        </div>
+        <div class="col-4">
+          <p class="centerMe" id="currentTemp" style="font-size: 100px">
+            60&#x2109;
+          </p>
+          <p class="centerMe" id="weatherCondition" style="font-size: 60px">
+            Partly Cloudy
+          </p>
+          <p id="hi/lo" class="high-low" style="font-size: 40px;">&#8593; 76&#x2109; &#8595; 50&#x2109;</p>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./Scripts/app.js"></script>
+  </body>
+</html>
