@@ -16,12 +16,11 @@ body{
 }
 .centerMe{
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 .rightMe{
     text-align: right;
     display: flex;
-    justify-content: right;
-}
-.high-low{
-    
+    justify-content: right; 
 }
