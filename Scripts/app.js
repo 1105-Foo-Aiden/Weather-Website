@@ -13,6 +13,14 @@ let longitude;
 let latitude;
 let day = new Date();
 let compareDay = new Date()
+let compareDay2 = new Date(compareDay.getTime() + 86400000)
+let compareDay3 = new Date(compareDay.getTime() + 86400000 * 2)
+let compareDay4 = new Date(compareDay.getTime() + 86400000 * 3)
+let compareDay5 = new Date(compareDay.getTime() + 86400000 * 4)
+let compareDay6 = new Date(compareDay.getTime() + 86400000 * 5)
+console.log(compareDay)
+console.log(compareDay2)
+
 
 
 //Forcast Day 1
@@ -60,6 +68,7 @@ async function success(position) {
   let day3MaxArr = []
   let day4MaxArr = []
   let day5MaxArr = []
+  let day6MaxArr = []
 
 
   //Min Arrays
@@ -68,12 +77,19 @@ async function success(position) {
   let day3MinArr = []
   let day4MinArr = []
   let day5MinArr = [] 
+  let day6MinArr = []
+
+  //status arrays
+  let day1StatusArr = []
+  let day2StatusArr = []
+  let day3StatusArr = []
+  let day4StatusArr = []
+  let day5StatusArr = []
 
   if(searchBar.value)
     {
       const search = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchBar.value}&limit=1&appid=${apiKey}`);
       const cityName = await search.json()
-      console.log(cityName[0].lat)
       latitude = cityName[0].lat;
       longitude = cityName[0].lon;
     }
@@ -81,44 +97,68 @@ async function success(position) {
     {
       latitude = position.coords.latitude;
       longitude = position.coords.longitude; 
-      const now = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=Imperial`)
-      const currentWeather = await now.json()
-      currentTemp.textContent = `${Math.round(currentWeather.main.temp)}\u00B0`;
-      location.textContent = `${currentWeather.name}`;
-      weatherCondition.textContent = `${currentWeather.weather[0].main}`;
-      weatherStat.src = `https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`;
     }
 
   const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial&cnt=40`);
 
   const data = await promise.json();
-
+    
   
-  for (let i = 0; i < data.list.length; i++) {
-    let dayTime1 = new Date(data.list[i].dt * 1000);
-    let dayTime2 = new Date(data.list[i].dt * 1000 + 86400000);
-    let dayTime3 = new Date(data.list[i].dt * 1000 + 86400000 * 2);
-    let dayTime4 = new Date(data.list[i].dt * 1000 + 86400000 * 3);
-    let dayTime5 = new Date(data.list[i].dt * 1000 + 86400000 * 4);
-    let dayTime6 = new Date(data.list[i].dt * 1000 + 86400000 * 5);
 
-    if(dayTime1.toLocaleDateString('en-US') === compareDay.toLocaleDateString('en-US')){
+  for (let i = 0; i < data.list.length; i++) {
+    let dayTime2 = new Date(data.list[i].dt * 1000);
+   
+
+    if(dayTime2.toLocaleDateString('en-US') === compareDay.toLocaleDateString('en-US')){
       day1MaxArr.push(data.list[i].main.temp_max);
       day1MinArr.push(data.list[i].main.temp_min);
-      // console.log(Math.round(Math.floor(...day1MaxArr))) 
-      // console.log(Math.round(Math.floor(...day1MinArr))) 
+    }
+    else if(dayTime2.toLocaleDateString('en-US') === compareDay2.toLocaleDateString('en-US')){
+      day2MaxArr.push(data.list[i].main.temp_max);
+      day2MinArr.push(data.list[i].main.temp_min);
+    }
+    else if(dayTime2.toLocaleDateString('en-US') === compareDay3.toLocaleDateString('en-US')){
+      day3MaxArr.push(data.list[i].main.temp_max);
+      day3MinArr.push(data.list[i].main.temp_min);
+    }
+    else if(dayTime2.toLocaleDateString('en-US') === compareDay4.toLocaleDateString('en-US')){
+      day4MaxArr.push(data.list[i].main.temp_max);
+      day4MinArr.push(data.list[i].main.temp_min);
+    }
+    else if(dayTime2.toLocaleDateString('en-US') === compareDay5.toLocaleDateString('en-US')){
+      day5MaxArr.push(data.list[i].main.temp_max);
+      day5MinArr.push(data.list[i].main.temp_min);
+    }
+    else if(dayTime2.toLocaleDateString('en-US') === compareDay6.toLocaleDateString('en-US')){
+      day6MaxArr.push(data.list[i].main.temp_max);
+      day6MinArr.push(data.list[i].main.temp_min);
     }
   }
   date.textContent = `${day}`;
-  console.log(day1MaxArr)
-  console.log(day1MinArr)
-  console.log(Math.round(Math.max(...day1MaxArr)))
-  console.log(Math.round(Math.min(...day1MinArr)))
   highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day1MinArr))}\u00B0`
-  // currentTemp.textContent = `${Math.round(data.list[0].main.temp)}\u00B0`;
-  // location.textContent = `${data.city.name}`;
-  // weatherCondition.textContent = `${data.list[0].weather[0].main}`;
-  // weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
+  day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day2MinArr))}\u00B0`
+  day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day3MinArr))}\u00B0`
+  day3HiLow.innerText = `\uFFEA${Math.round(Math.max(...day4MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day4MinArr))}\u00B0`
+  day4HiLow.innerText = `\uFFEA${Math.round(Math.max(...day5MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day5MinArr))}\u00B0`
+  day5HiLow.innerText = `\uFFEA${Math.round(Math.max(...day6MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day6MinArr))}\u00B0`
+  console.log(day2MaxArr)
+  console.log(day2MinArr)
+  console.log(Math.round(Math.max(...day2MaxArr)))
+  console.log(Math.round(Math.min(...day2MinArr)))
+  
+
+  console.log(day5MaxArr)
+  console.log(day5MinArr)
+  console.log(Math.round(Math.max(...day5MaxArr)))
+  console.log(Math.round(Math.min(...day5MinArr)))
+
+  
+  
+  
+  currentTemp.textContent = `${Math.round(data.list[0].main.temp)}\u00B0`;
+  location.textContent = `${data.city.name}`;
+  weatherCondition.textContent = `${data.list[0].weather[0].main}`;
+  weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
 
 }
 
