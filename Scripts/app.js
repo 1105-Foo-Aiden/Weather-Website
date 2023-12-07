@@ -116,50 +116,89 @@ async function success(position) {
     else if(dayTime2.toLocaleDateString('en-US') === compareDay2.toLocaleDateString('en-US')){
       day2MaxArr.push(data.list[i].main.temp_max);
       day2MinArr.push(data.list[i].main.temp_min);
+      day1StatusArr.push(data.list[i].weather[0].icon)
     }
     else if(dayTime2.toLocaleDateString('en-US') === compareDay3.toLocaleDateString('en-US')){
       day3MaxArr.push(data.list[i].main.temp_max);
       day3MinArr.push(data.list[i].main.temp_min);
+      day2StatusArr.push(data.list[i].weather[0].icon)
     }
     else if(dayTime2.toLocaleDateString('en-US') === compareDay4.toLocaleDateString('en-US')){
       day4MaxArr.push(data.list[i].main.temp_max);
       day4MinArr.push(data.list[i].main.temp_min);
+      day3StatusArr.push(data.list[i].weather[0].icon)
     }
     else if(dayTime2.toLocaleDateString('en-US') === compareDay5.toLocaleDateString('en-US')){
       day5MaxArr.push(data.list[i].main.temp_max);
       day5MinArr.push(data.list[i].main.temp_min);
+      day4StatusArr.push(data.list[i].weather[0].icon)
     }
     else if(dayTime2.toLocaleDateString('en-US') === compareDay6.toLocaleDateString('en-US')){
       day6MaxArr.push(data.list[i].main.temp_max);
       day6MinArr.push(data.list[i].main.temp_min);
+      day5StatusArr.push(data.list[i].weather[0].icon)
     }
-  }
+   }
+  console.log(day1StatusArr)
+
+  // day1StatusArr = [02n, 04n, 04n, 04d, 04d, 04d, 03n, 02n]
+
+  //result should be = 04d is the most common
+
+  //count the number of the same items in the array
+  //output what that most same item is
+  //make that the source of the image in the forecast
+
   date.textContent = `${day}`;
+
   highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day1MinArr))}\u00B0`
   day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day2MinArr))}\u00B0`
   day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day3MinArr))}\u00B0`
   day3HiLow.innerText = `\uFFEA${Math.round(Math.max(...day4MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day4MinArr))}\u00B0`
   day4HiLow.innerText = `\uFFEA${Math.round(Math.max(...day5MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day5MinArr))}\u00B0`
   day5HiLow.innerText = `\uFFEA${Math.round(Math.max(...day6MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day6MinArr))}\u00B0`
-  console.log(day2MaxArr)
-  console.log(day2MinArr)
-  console.log(Math.round(Math.max(...day2MaxArr)))
-  console.log(Math.round(Math.min(...day2MinArr)))
   
-
-  console.log(day5MaxArr)
-  console.log(day5MinArr)
-  console.log(Math.round(Math.max(...day5MaxArr)))
-  console.log(Math.round(Math.min(...day5MinArr)))
-
-  
-  
+  weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`
   
   currentTemp.textContent = `${Math.round(data.list[0].main.temp)}\u00B0`;
   location.textContent = `${data.city.name}`;
   weatherCondition.textContent = `${data.list[0].weather[0].main}`;
-  weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
-
+  function findMostCommonStatus(statusArr) {
+    const frequency = {};
+  
+    // Count the frequency of each status
+    statusArr.forEach(status => {
+      frequency[status] = (frequency[status] || 0) + 1;
+    });
+  
+    let mostCommonStatus;
+    let maxFrequency = 0;
+  
+    // Find the most common status
+    Object.keys(frequency).forEach(status => {
+      if (frequency[status] > maxFrequency) {
+        maxFrequency = frequency[status];
+        mostCommonStatus = status;
+      }
+    });
+  
+    return mostCommonStatus;
+  }
+  
+  // ... (your existing code)
+  
+  // Find the most common status for each day
+  const mostCommonStatusDay1 = findMostCommonStatus(day1StatusArr);
+  const mostCommonStatusDay2 = findMostCommonStatus(day2StatusArr);
+  const mostCommonStatusDay3 = findMostCommonStatus(day3StatusArr);
+  const mostCommonStatusDay4 = findMostCommonStatus(day4StatusArr);
+  const mostCommonStatusDay5 = findMostCommonStatus(day5StatusArr);
+  
+  day1Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay1}@2x.png`
+  day2Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay2}@2x.png`
+  day3Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay3}@2x.png`
+  day4Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay4}@2x.png`
+  day5Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay5}@2x.png`
 }
 
 function errorFunc(error) {
