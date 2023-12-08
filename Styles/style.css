@@ -24,3 +24,16 @@ body{
     display: flex;
     justify-content: right; 
 }
+
+.forcastDay{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.forcastHiLo{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+}
+

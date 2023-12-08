@@ -2,7 +2,7 @@ import { apiKey } from "./environment.js";
 
 let searchBar = document.getElementById("searchBar");
 let location = document.getElementById("location");
-let favorites = document.getElementById("favorties");
+let favorites = document.getElementById("favorites");
 let searchBtn = document.getElementById("searchBtn");
 let date = document.getElementById("date");
 let currentTemp = document.getElementById("currentTemp");
@@ -18,10 +18,6 @@ let compareDay3 = new Date(compareDay.getTime() + 86400000 * 2)
 let compareDay4 = new Date(compareDay.getTime() + 86400000 * 3)
 let compareDay5 = new Date(compareDay.getTime() + 86400000 * 4)
 let compareDay6 = new Date(compareDay.getTime() + 86400000 * 5)
-console.log(compareDay)
-console.log(compareDay2)
-
-
 
 //Forcast Day 1
 let day1Day = document.getElementById("day1Day");
@@ -151,12 +147,12 @@ async function success(position) {
 
   date.textContent = `${day}`;
 
-  highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day1MinArr))}\u00B0`
-  day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day2MinArr))}\u00B0`
-  day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day3MinArr))}\u00B0`
-  day3HiLow.innerText = `\uFFEA${Math.round(Math.max(...day4MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day4MinArr))}\u00B0`
-  day4HiLow.innerText = `\uFFEA${Math.round(Math.max(...day5MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day5MinArr))}\u00B0`
-  day5HiLow.innerText = `\uFFEA${Math.round(Math.max(...day6MaxArr))}\u00B0 \uFFEC ${Math.round(Math.min(...day6MinArr))}\u00B0`
+  highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}  \uFFEC${Math.round(Math.min(...day1MinArr))}`
+  day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}  \uFFEC${Math.round(Math.min(...day2MinArr))}`
+  day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}  \uFFEC${Math.round(Math.min(...day3MinArr))}`
+  day3HiLow.innerText = `\uFFEA${Math.round(Math.max(...day4MaxArr))}  \uFFEC${Math.round(Math.min(...day4MinArr))}`
+  day4HiLow.innerText = `\uFFEA${Math.round(Math.max(...day5MaxArr))}  \uFFEC${Math.round(Math.min(...day5MinArr))}`
+  day5HiLow.innerText = `\uFFEA${Math.round(Math.max(...day6MaxArr))}  \uFFEC${Math.round(Math.min(...day6MinArr))}`
   
   weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`
   
