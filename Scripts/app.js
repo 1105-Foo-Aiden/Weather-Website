@@ -57,6 +57,7 @@ day = day.toLocaleDateString("default", { weekday: `long`, day: "numeric",  mont
 navigator.geolocation.getCurrentPosition(success, errorFunc);
 
 async function success(position) {
+  
   //Max Arrays
 
   let day1MaxArr = []
@@ -137,14 +138,6 @@ async function success(position) {
    }
   console.log(day1StatusArr)
 
-  // day1StatusArr = [02n, 04n, 04n, 04d, 04d, 04d, 03n, 02n]
-
-  //result should be = 04d is the most common
-
-  //count the number of the same items in the array
-  //output what that most same item is
-  //make that the source of the image in the forecast
-
   date.textContent = `${day}`;
 
   highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}  \uFFEC${Math.round(Math.min(...day1MinArr))}`
@@ -161,16 +154,14 @@ async function success(position) {
   weatherCondition.textContent = `${data.list[0].weather[0].main}`;
   function findMostCommonStatus(statusArr) {
     const frequency = {};
-  
-    // Count the frequency of each status
+    
     statusArr.forEach(status => {
       frequency[status] = (frequency[status] || 0) + 1;
     });
   
     let mostCommonStatus;
     let maxFrequency = 0;
-  
-    // Find the most common status
+
     Object.keys(frequency).forEach(status => {
       if (frequency[status] > maxFrequency) {
         maxFrequency = frequency[status];
@@ -180,10 +171,6 @@ async function success(position) {
   
     return mostCommonStatus;
   }
-  
-  // ... (your existing code)
-  
-  // Find the most common status for each day
   const mostCommonStatusDay1 = findMostCommonStatus(day1StatusArr);
   const mostCommonStatusDay2 = findMostCommonStatus(day2StatusArr);
   const mostCommonStatusDay3 = findMostCommonStatus(day3StatusArr);
