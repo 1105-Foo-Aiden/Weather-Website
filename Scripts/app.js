@@ -1,3 +1,5 @@
+//All inital variables needed
+
 import { apiKey } from "./environment.js";
 
 let searchBar = document.getElementById("searchBar");
@@ -24,28 +26,27 @@ let day1Day = document.getElementById("day1Day");
 let day1Status = document.getElementById("day1Status");
 let day1HiLow = document.getElementById("day1HighLow");
 
-//forcast Day 2
+//Forcast Day 2
 let day2Day = document.getElementById("day2Day");
 let day2Status = document.getElementById("day2Status");
 let day2HiLow = document.getElementById("day2HighLow");
 
-//forcast Day 3
+//Forcast Day 3
 let day3Day = document.getElementById("day3Day");
 let day3Status = document.getElementById("day3Status");
 let day3HiLow = document.getElementById("day3HighLow");
 
-//forcast Day 4
+//Forcast Day 4
 let day4Day = document.getElementById("day4Day");
 let day4Status = document.getElementById("day4Status");
 let day4HiLow = document.getElementById("day4HighLow");
 
-//forcast Day 5
+//Forcast Day 5
 let day5Day = document.getElementById("day5Day");
 let day5Status = document.getElementById("day5Status");
 let day5HiLow = document.getElementById("day5HighLow");
 
-
-
+//Dates for forecast
 day1Day.textContent = `${new Date(day.getTime() + 86400000).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000).toLocaleDateString('en-US', {day:'numeric'})}`
 day2Day.textContent = `${new Date(day.getTime() + 86400000 * 2).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000 * 2).toLocaleDateString('en-US', {day:'numeric'})}`
 day3Day.textContent = `${new Date(day.getTime() + 86400000 * 3).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000 * 3).toLocaleDateString('en-US', {day:'numeric'})}`
@@ -59,7 +60,6 @@ navigator.geolocation.getCurrentPosition(success, errorFunc);
 async function success(position) {
   
   //Max Arrays
-
   let day1MaxArr = []
   let day2MaxArr = []
   let day3MaxArr = []
@@ -76,13 +76,14 @@ async function success(position) {
   let day5MinArr = [] 
   let day6MinArr = []
 
-  //status arrays
+  //Status arrays
   let day1StatusArr = []
   let day2StatusArr = []
   let day3StatusArr = []
   let day4StatusArr = []
   let day5StatusArr = []
 
+  //Checking value in search bar if there is one
   if(searchBar.value)
     {
       const search = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchBar.value}&limit=1&appid=${apiKey}`);
@@ -92,6 +93,7 @@ async function success(position) {
     }
     else
     {
+      //Current position
       latitude = position.coords.latitude;
       longitude = position.coords.longitude; 
     }
@@ -100,7 +102,7 @@ async function success(position) {
 
   const data = await promise.json();
     
-  
+  //adding all data to arrays for each day "for loop"
 
   for (let i = 0; i < data.list.length; i++) {
     let dayTime2 = new Date(data.list[i].dt * 1000);
@@ -136,23 +138,9 @@ async function success(position) {
       day5StatusArr.push(data.list[i].weather[0].icon)
     }
    }
-  console.log(day1StatusArr)
 
-  date.textContent = `${day}`;
-
-  highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}  \uFFEC${Math.round(Math.min(...day1MinArr))}`
-  day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}  \uFFEC${Math.round(Math.min(...day2MinArr))}`
-  day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}  \uFFEC${Math.round(Math.min(...day3MinArr))}`
-  day3HiLow.innerText = `\uFFEA${Math.round(Math.max(...day4MaxArr))}  \uFFEC${Math.round(Math.min(...day4MinArr))}`
-  day4HiLow.innerText = `\uFFEA${Math.round(Math.max(...day5MaxArr))}  \uFFEC${Math.round(Math.min(...day5MinArr))}`
-  day5HiLow.innerText = `\uFFEA${Math.round(Math.max(...day6MaxArr))}  \uFFEC${Math.round(Math.min(...day6MinArr))}`
-  
-  weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`
-  
-  currentTemp.textContent = `${Math.round(data.list[0].main.temp)}\u00B0`;
-  location.textContent = `${data.city.name}`;
-  weatherCondition.textContent = `${data.list[0].weather[0].main}`;
-  function findMostCommonStatus(statusArr) {
+  //Function for finding the mode of 5 day forecast
+  function StatusMode(statusArr) {
     const frequency = {};
     
     statusArr.forEach(status => {
@@ -171,12 +159,29 @@ async function success(position) {
   
     return mostCommonStatus;
   }
-  const mostCommonStatusDay1 = findMostCommonStatus(day1StatusArr);
-  const mostCommonStatusDay2 = findMostCommonStatus(day2StatusArr);
-  const mostCommonStatusDay3 = findMostCommonStatus(day3StatusArr);
-  const mostCommonStatusDay4 = findMostCommonStatus(day4StatusArr);
-  const mostCommonStatusDay5 = findMostCommonStatus(day5StatusArr);
+  //Calling function to get most frequent icon id's
+
+  const mostCommonStatusDay1 = StatusMode(day1StatusArr);
+  const mostCommonStatusDay2 = StatusMode(day2StatusArr);
+  const mostCommonStatusDay3 = StatusMode(day3StatusArr);
+  const mostCommonStatusDay4 = StatusMode(day4StatusArr);
+  const mostCommonStatusDay5 = StatusMode(day5StatusArr);
   
+  //Populating all data:
+
+  //Current data
+  date.textContent = `${day}`;
+  currentTemp.textContent = `${Math.round(data.list[0].main.temp)}\u00B0`;
+  location.textContent = `${data.city.name}`;
+  weatherCondition.textContent = `${data.list[0].weather[0].main}`;
+  weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`
+  highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}  \uFFEC${Math.round(Math.min(...day1MinArr))}`
+  //Forecast Data
+  day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}  \uFFEC${Math.round(Math.min(...day2MinArr))}`
+  day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}  \uFFEC${Math.round(Math.min(...day3MinArr))}`
+  day3HiLow.innerText = `\uFFEA${Math.round(Math.max(...day4MaxArr))}  \uFFEC${Math.round(Math.min(...day4MinArr))}`
+  day4HiLow.innerText = `\uFFEA${Math.round(Math.max(...day5MaxArr))}  \uFFEC${Math.round(Math.min(...day5MinArr))}`
+  day5HiLow.innerText = `\uFFEA${Math.round(Math.max(...day6MaxArr))}  \uFFEC${Math.round(Math.min(...day6MinArr))}`
   day1Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay1}@2x.png`
   day2Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay2}@2x.png`
   day3Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay3}@2x.png`
