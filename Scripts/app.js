@@ -4,15 +4,25 @@ import { apiKey } from "./environment.js";
 
 let searchBar = document.getElementById("searchBar");
 let location = document.getElementById("location");
-let favorites = document.getElementById("favorites");
 let searchBtn = document.getElementById("searchBtn");
 let date = document.getElementById("date");
 let currentTemp = document.getElementById("currentTemp");
 let weatherCondition = document.getElementById("weatherCondition");
 let highLow = document.getElementById("hi/lo");
 let weatherStat = document.getElementById("weatherStat");
+let favoriteBtn = document.getElementById("favoriteStar")
 let longitude;
-let latitude;
+let latitude; 
+
+let favorites1 = document.getElementById("favorites1")
+let favorites2 = document.getElementById("favorites2")
+let favorites3 = document.getElementById("favorites3")
+
+let favorites1Weather = document.getElementById("favorites1Weather")
+let favorites2Weather = document.getElementById("favorites2Weather")
+let favorites3Weather = document.getElementById("favorites3Weather")
+
+
 let day = new Date();
 let compareDay = new Date()
 let compareDay2 = new Date(compareDay.getTime() + 86400000)
@@ -20,6 +30,9 @@ let compareDay3 = new Date(compareDay.getTime() + 86400000 * 2)
 let compareDay4 = new Date(compareDay.getTime() + 86400000 * 3)
 let compareDay5 = new Date(compareDay.getTime() + 86400000 * 4)
 let compareDay6 = new Date(compareDay.getTime() + 86400000 * 5)
+let favoritesArr = []
+
+
 
 //Forcast Day 1
 let day1Day = document.getElementById("day1Day");
@@ -47,11 +60,11 @@ let day5Status = document.getElementById("day5Status");
 let day5HiLow = document.getElementById("day5HighLow");
 
 //Dates for forecast
-day1Day.textContent = `${new Date(day.getTime() + 86400000).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000).toLocaleDateString('en-US', {day:'numeric'})}`
-day2Day.textContent = `${new Date(day.getTime() + 86400000 * 2).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000 * 2).toLocaleDateString('en-US', {day:'numeric'})}`
-day3Day.textContent = `${new Date(day.getTime() + 86400000 * 3).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000 * 3).toLocaleDateString('en-US', {day:'numeric'})}`
-day4Day.textContent = `${new Date(day.getTime() + 86400000 * 4).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000 * 4).toLocaleDateString('en-US', {day:'numeric'})}`
-day5Day.textContent = `${new Date(day.getTime() + 86400000 * 5).toLocaleDateString('en-US', {weekday: 'short'})} ${new Date(day.getTime() + 86400000 * 5).toLocaleDateString('en-US', {day:'numeric'})}`
+day1Day.textContent = `${new Date(day.getTime() + 86400000).toLocaleDateString("en-US", {weekday: "short"})} ${new Date(day.getTime() + 86400000).toLocaleDateString("en-US", {day:"numeric"})}`
+day2Day.textContent = `${new Date(day.getTime() + 86400000 * 2).toLocaleDateString("en-US", {weekday: "short"})} ${new Date(day.getTime() + 86400000 * 2).toLocaleDateString("en-US", {day:"numeric"})}`
+day3Day.textContent = `${new Date(day.getTime() + 86400000 * 3).toLocaleDateString("en-US", {weekday: "short"})} ${new Date(day.getTime() + 86400000 * 3).toLocaleDateString("en-US", {day:"numeric"})}`
+day4Day.textContent = `${new Date(day.getTime() + 86400000 * 4).toLocaleDateString("en-US", {weekday: "short"})} ${new Date(day.getTime() + 86400000 * 4).toLocaleDateString("en-US", {day:"numeric"})}`
+day5Day.textContent = `${new Date(day.getTime() + 86400000 * 5).toLocaleDateString("en-US", {weekday: "short"})} ${new Date(day.getTime() + 86400000 * 5).toLocaleDateString("en-US", {day:"numeric"})}`
 
 day = day.toLocaleDateString("default", { weekday: `long`, day: "numeric",  month: "short",});
 
@@ -108,31 +121,31 @@ async function success(position) {
     let dayTime2 = new Date(data.list[i].dt * 1000);
    
 
-    if(dayTime2.toLocaleDateString('en-US') === compareDay.toLocaleDateString('en-US')){
+    if(dayTime2.toLocaleDateString("en-US") === compareDay.toLocaleDateString("en-US")){
       day1MaxArr.push(data.list[i].main.temp_max);
       day1MinArr.push(data.list[i].main.temp_min);
     }
-    else if(dayTime2.toLocaleDateString('en-US') === compareDay2.toLocaleDateString('en-US')){
+    else if(dayTime2.toLocaleDateString("en-US") === compareDay2.toLocaleDateString("en-US")){
       day2MaxArr.push(data.list[i].main.temp_max);
       day2MinArr.push(data.list[i].main.temp_min);
       day1StatusArr.push(data.list[i].weather[0].icon)
     }
-    else if(dayTime2.toLocaleDateString('en-US') === compareDay3.toLocaleDateString('en-US')){
+    else if(dayTime2.toLocaleDateString("en-US") === compareDay3.toLocaleDateString("en-US")){
       day3MaxArr.push(data.list[i].main.temp_max);
       day3MinArr.push(data.list[i].main.temp_min);
       day2StatusArr.push(data.list[i].weather[0].icon)
     }
-    else if(dayTime2.toLocaleDateString('en-US') === compareDay4.toLocaleDateString('en-US')){
+    else if(dayTime2.toLocaleDateString("en-US") === compareDay4.toLocaleDateString("en-US")){
       day4MaxArr.push(data.list[i].main.temp_max);
       day4MinArr.push(data.list[i].main.temp_min);
       day3StatusArr.push(data.list[i].weather[0].icon)
     }
-    else if(dayTime2.toLocaleDateString('en-US') === compareDay5.toLocaleDateString('en-US')){
+    else if(dayTime2.toLocaleDateString("en-US") === compareDay5.toLocaleDateString("en-US")){
       day5MaxArr.push(data.list[i].main.temp_max);
       day5MinArr.push(data.list[i].main.temp_min);
       day4StatusArr.push(data.list[i].weather[0].icon)
     }
-    else if(dayTime2.toLocaleDateString('en-US') === compareDay6.toLocaleDateString('en-US')){
+    else if(dayTime2.toLocaleDateString("en-US") === compareDay6.toLocaleDateString("en-US")){
       day6MaxArr.push(data.list[i].main.temp_max);
       day6MinArr.push(data.list[i].main.temp_min);
       day5StatusArr.push(data.list[i].weather[0].icon)
@@ -140,6 +153,7 @@ async function success(position) {
    }
 
   //Function for finding the mode of 5 day forecast
+
   function StatusMode(statusArr) {
     const frequency = {};
     
@@ -159,7 +173,7 @@ async function success(position) {
   
     return mostCommonStatus;
   }
-  //Calling function to get most frequent icon id's
+  //Calling function to get most frequent icon id"s
 
   const mostCommonStatusDay1 = StatusMode(day1StatusArr);
   const mostCommonStatusDay2 = StatusMode(day2StatusArr);
@@ -176,6 +190,10 @@ async function success(position) {
   weatherCondition.textContent = `${data.list[0].weather[0].main}`;
   weatherStat.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`
   highLow.innerText = `\uFFEA${Math.round(Math.max(...day1MaxArr))}  \uFFEC${Math.round(Math.min(...day1MinArr))}`
+
+  favorites1.textContent = `${location.textContent}`
+  
+
   //Forecast Data
   day1HiLow.innerText = `\uFFEA${Math.round(Math.max(...day2MaxArr))}  \uFFEC${Math.round(Math.min(...day2MinArr))}`
   day2HiLow.innerText = `\uFFEA${Math.round(Math.max(...day3MaxArr))}  \uFFEC${Math.round(Math.min(...day3MinArr))}`
@@ -187,14 +205,38 @@ async function success(position) {
   day3Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay3}@2x.png`
   day4Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay4}@2x.png`
   day5Status.src = `https://openweathermap.org/img/wn/${mostCommonStatusDay5}@2x.png`
+  favorites1Weather.innerText = `${currentTemp.textContent}\nH:${Math.round(Math.max(...day1MaxArr))} L:${Math.round(Math.min(...day1MinArr))}`
 }
 
 function errorFunc(error) {
   console.log(error.message);
 }
 
-searchBtn.addEventListener('click', function(e){
+searchBtn.addEventListener("click", function(e){
   console.clear()
   console.log(searchBar.value)
   success(searchBar.value)
 });
+
+favoriteBtn.addEventListener("click", function(e){
+    while(empty = false){
+      for(let i = 0; i < favoritesArr.length; i++ )
+      {
+        if(location.textContent === favoritesArr[i])
+        {
+          favoritesArr.splice(location.textContent, )
+          console.log(favoritesArr)
+          localStorage.setItem("Favorites", JSON.stringify(favoritesArr))
+        }
+        else{
+          favoritesArr.push(location.textContent)
+          console.log(favoritesArr)
+          localStorage.setItem("Favorites", JSON.stringify(favoritesArr))
+        }
+      }
+    }
+  console.log(favoritesArr)
+  empty = false;
+  
+});
+
