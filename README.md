@@ -10,3 +10,6 @@ I kept working on the format of the website along with the JavaScript, I was abl
 
 Day 3 Notes
 I was able to finish the search bar and give it functionality and was able to get all the apis called and able to populate in the console. I satarted working on the max/min of each day for the 5 day forcast and was able to get the next 5 days of the week and dates able to populate.
+
+Day 4 Notes
+Was able to finally get the forecast done and dusted, and changes depending on the location and the search bar, full functionality :)
