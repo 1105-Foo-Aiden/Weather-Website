@@ -1,6 +1,10 @@
 Aiden Foo
 December 4, 2023
 Weather Website
+Peer reviewed by: Elizabeth Trotter
+Peer Review Notes:
+
+Peer Review: Your weather application works great! It is very close to the protoype so awesome work! If time permitted, I would like to be able to keypress a city search in addition to the search button click. But that's just me being nit picky. Thanks for letting me check out your project!
 
 Day 1 Notes
 Recieved the figma from the person who's website I was going to recreate, and tried setting up a lot of the basics. Was not able to get all of what I wanted today (still trying to get over a cold) but a lot of the foundation work is there.
@@ -14,4 +18,6 @@ I was able to finish the search bar and give it functionality and was able to ge
 Day 4 Notes
 Was able to finally get the forecast done and dusted, and changes depending on the location and the search bar, full functionality :)
 
-Peer Review: Your weather application works great! It is very close to the protoype so awesome work! If time permitted, I would like to be able to keypress a city search in addition to the search button click. But that's just me being nit picky. Thanks for letting me check out your project!
+Day 5 Notes
+Was able to finish to about a 90% degree of how the figma looks and functions, the favorites bar will look weird if you don't un-favorite them in reverse order but I am proud of myself for not throwing in the towel and getting it done
+
