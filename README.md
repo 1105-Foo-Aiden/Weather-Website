@@ -13,3 +13,5 @@ I was able to finish the search bar and give it functionality and was able to ge
 
 Day 4 Notes
 Was able to finally get the forecast done and dusted, and changes depending on the location and the search bar, full functionality :)
+
+Peer Review: Your weather application works great! It is very close to the protoype so awesome work! If time permitted, I would like to be able to keypress a city search in addition to the search button click. But that's just me being nit picky. Thanks for letting me check out your project!
